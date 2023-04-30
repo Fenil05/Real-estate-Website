@@ -5,6 +5,7 @@ import upload from "../../../utils/upload.js";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { axiosInstance } from "../../../config";
 
 const Add = () => {
   const [singleFile, setSingleFile] = useState(undefined);
@@ -52,7 +53,7 @@ const Add = () => {
 
   const mutation = useMutation({
     mutationFn: (prop) => {
-      return axios.post("/houses", prop);
+      return axiosInstance.post("/houses", prop);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"]);

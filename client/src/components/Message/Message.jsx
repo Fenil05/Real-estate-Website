@@ -3,24 +3,25 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import "./Message.css";
 import axios from "axios";
+import { axiosInstance } from "../../config";
 
 const Message = () => {
   const { id } = useParams();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    axios.defaults.withCredentials=true
+    axiosInstance.defaults.withCredentials=true
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["messages"],
     queryFn: () =>
-      axios.get(`/message/${id}`).then((res) => {
+    axiosInstance.get(`/message/${id}`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (message) => {
-      return axios.post(`/message`,message);
+      return axiosInstance.post(`/message`,message);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["messages"]);

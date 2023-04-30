@@ -4,6 +4,7 @@ import Review from "../review/Review";
 import "./Reviews.css";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import { axiosInstance } from "../../config";
 const Reviews = ({ houseId }) => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
@@ -11,7 +12,7 @@ const Reviews = ({ houseId }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ["reviews"],
     queryFn: () =>
-      axios.get(`/reviews/${houseId}`).then((res) => {
+      axiosInstance.get(`/reviews/${houseId}`).then((res) => {
         return res.data;
       }),
   });
@@ -20,7 +21,7 @@ const Reviews = ({ houseId }) => {
 
   const mutation = useMutation({
     mutationFn: (review) => {
-      return axios.post("/reviews", review,{withCredentials:true});
+      return axiosInstance.post("/reviews", review,{withCredentials:true});
     },
     onSuccess:()=>{
       queryClient.invalidateQueries(["reviews"])

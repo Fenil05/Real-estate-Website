@@ -2,12 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import "./Review.css";
 import axios from "axios";
+import { axiosInstance } from "../../config";
 const Review = ({ review }) => {
   const { isLoading, error, data } = useQuery(
     {
       queryKey: [review.userId],
       queryFn: () =>
-        axios.get(`/users/single/${review.userId}`).then((res) => {
+        axiosInstance.get(`/users/single/${review.userId}`).then((res) => {
           return res.data;
         }),
     },

@@ -4,16 +4,17 @@ import { Link } from "react-router-dom";
 import "./Messages.css";
 import moment from "moment";
 import axios from "axios";
+import { axiosInstance } from "../../config";
 
 const Messages = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  axios.defaults.withCredentials=true;
+  axiosInstance.defaults.withCredentials=true;
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["conversations"],
     queryFn: () =>
-      axios.get(`/conversations`,{withCredentials:true}).then((res) => {
+    axiosInstance.get(`/conversations`,{withCredentials:true}).then((res) => {
         console.log(currentUser._id);
         return res.data;
       }),
@@ -28,14 +29,14 @@ const Messages = () => {
   } = useQuery({
     queryKey: ["user2"],
     queryFn: () =>
-      axios.get(`/users/single/${userId}`).then((res) => {
+    axiosInstance.get(`/users/single/${userId}`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return axios.put(`/conversations/${id}`,{withCredentials:true})
+      return axiosInstance.put(`/conversations/${id}`,{withCredentials:true})
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["conversations"]);

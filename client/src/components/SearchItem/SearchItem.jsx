@@ -4,8 +4,9 @@ import "./searchitem.css"
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { axiosInstance } from '../../config';
 function SearchItem({item}) {
-    axios.defaults.withCredentials=true
+    axiosInstance.defaults.withCredentials=true
     const userId = item?.userId;
 
     const [data,setData] = useState([]);
@@ -26,7 +27,7 @@ function SearchItem({item}) {
     useEffect(()=>{
         const fetchData = async()=>{ 
             try {
-                const res = await axios.get(`/users/single/${userId}`);
+                const res = await axiosInstance.get(`/users/single/${userId}`);
                 setData(res.data);
             } catch (err) {
                 setError(err)

@@ -7,10 +7,11 @@ import upload from "../../utils/upload";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { axiosInstance } from '../../config';
 
 function UpdateHouse() {
 
-    axios.defaults.withCredentials=false
+    axiosInstance.defaults.withCredentials=false
     const location = useLocation();
     const id = location.pathname.split("/")[2];
 
@@ -61,7 +62,7 @@ function UpdateHouse() {
 
   const mutation = useMutation({
     mutationFn: (prop) => {
-      return axios.put(`/houses/${id}`,prop);
+      return axiosInstance.put(`/houses/${id}`,prop);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["update"]);

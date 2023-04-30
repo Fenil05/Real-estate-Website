@@ -3,17 +3,18 @@ import { Link } from "react-router-dom";
 import "./MyProp.css";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { axiosInstance } from "../../config";
 
 function MyGigs() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    axios.defaults.withCredentials=true;
+    axiosInstance.defaults.withCredentials=true;
 
   const queryClient = useQueryClient();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["myGigs"],
     queryFn: () =>
-      axios.get(`/houses?userId=${currentUser._id}`).then((res) => {
+    axiosInstance.get(`/houses?userId=${currentUser._id}`).then((res) => {
         return res.data;
       }),
   });
@@ -27,14 +28,14 @@ function MyGigs() {
   } = useQuery({
     queryKey: ["user4"],
     queryFn: () =>
-      axios.get(`/users/single/${userId}`).then((res) => {
+    axiosInstance.get(`/users/single/${userId}`).then((res) => {
         return res.data;
       }),
   });
 
   const mutation = useMutation({
     mutationFn: (id) => {
-      return axios.delete(`/houses/${id}`);
+      return axiosInstance.delete(`/houses/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries(["myGigs"]);

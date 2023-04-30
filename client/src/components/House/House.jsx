@@ -8,13 +8,14 @@ import Reserve from '../reserve/Reserve';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import Reviews from '../reviews/Reviews';
+import { axiosInstance } from '../../config';
 function House() {
     const location = useLocation();
     const id = location.pathname.split("/")[2];
     const[slideno,setSlideno] = useState(0);
     const[open,setOpen] = useState(false);
     const[openModel,setOpenModel] = useState(false);
-    axios.defaults.withCredentials=true
+    axiosInstance.defaults.withCredentials=true
 
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
     
@@ -29,7 +30,7 @@ function House() {
   } = useQuery({
     queryKey: ["user1"],
     queryFn: () =>
-      axios.get(`/users/single/${userId}`).then((res) => {
+      axiosInstance.get(`/users/single/${userId}`).then((res) => {
         return res.data;
       }),
     enabled: !!userId,
@@ -67,7 +68,7 @@ function House() {
         navigate("/Login");}
         else{
       try {
-        await axios.post(`/orders/${id}`);
+        await axiosInstance.post(`/orders/${id}`);
         navigate("/myfavourites")
       } catch (err) {
         console.log(err);
