@@ -38,10 +38,6 @@ app.use((req,res,next)=>{
     next()
 })
 app.use(cors(
-    {
-        origin:"*",
-        credentials:true
-    }
 ));
 
 app.use(express.json());
