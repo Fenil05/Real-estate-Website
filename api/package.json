@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
-    "start-server": "nodemon index.js --ignore './client/'"
+    "start-server": "node index.js --ignore './client/'"
   },
   "keywords": [],
   "author": "",
