@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index.js",
+    "build":"npm i",
     "start-server": "node index.js --ignore './client/'"
   },
   "keywords": [],
