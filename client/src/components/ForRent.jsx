@@ -5,7 +5,6 @@ import "../components/HouseRent.css"
 import "../App.css"
 import { Link, useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { axiosInstance } from '../config';
 
 function ForRent() {
 
@@ -20,7 +19,7 @@ function ForRent() {
     const { isLoading, error, data, refetch } = useQuery({
         queryKey: ['repoData'],
         queryFn: () =>
-        axiosInstance.get(
+        axios.get(
           `/house-rent${search}&min=${minRef.current.value}&max=${maxRef.current.value}&sort=${sort}`
         )
         .then((res) => {

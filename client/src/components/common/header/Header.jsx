@@ -3,8 +3,7 @@ import "./header.css"
 import { nav } from "../../data/Data"
 import { Link, Navigate, useNavigate } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query";
-//import axios from "axios";
-import { axiosInstance } from "../../../config";
+import axios from "axios";
 
 const Header = () => {
   const [navList, setNavList] = useState(false)
@@ -17,7 +16,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await axiosInstance.post("/auth/logout");
+      await axios.post("/auth/logout");
       localStorage.setItem("currentUser", null);
     navigate("/");
     } catch (err) {
@@ -32,7 +31,7 @@ const Header = () => {
   } = useQuery({
     queryKey: ["user4"],
     queryFn: () =>
-    axiosInstance.get(`/users/single/${userId}`).then((res) => {
+      axios.get(`/users/single/${userId}`).then((res) => {
         return res.data;
       }),
   });

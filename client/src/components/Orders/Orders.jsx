@@ -3,17 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Orders.css";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { axiosInstance } from "../../config";
 
 const Orders = () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  axiosInstance.defaults.withCredentials=true;
+  axios.defaults.withCredentials=true;
 
   const navigate = useNavigate();
   const { isLoading, error, data } = useQuery({
     queryKey: ["orders"],
     queryFn: () =>
-    axiosInstance.get(`/orders`,{withCredentials:true}).then((res) => {
+      axios.get(`/orders`,{withCredentials:true}).then((res) => {
         return res.data;
       }),
   });
@@ -28,7 +27,7 @@ const Orders = () => {
   } = useQuery({
     queryKey: ["user3"],
     queryFn: () =>
-    axiosInstance.get(`/users/single/${userId}`).then((res) => {
+      axios.get(`/users/single/${userId}`).then((res) => {
         return res.data;
       }),
   });
@@ -43,11 +42,11 @@ const Orders = () => {
      console.log(tenantId);
 
      try {
-       const res = await axiosInstance.get(`/conversations/single/${id}`);
+       const res = await axios.get(`/conversations/single/${id}`);
        navigate(`/message/${res.data.id}`);
      } catch (err) {
        if (err.response.status === 404) {
-         const res = await axiosInstance.post(`/conversations/`, {
+         const res = await axios.post(`/conversations/`, {
            to: dataUser?.isOwner ? tenantId : ownerId,
          });
          navigate(`/message/${res.data.id}`);

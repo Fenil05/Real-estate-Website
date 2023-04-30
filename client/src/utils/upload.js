@@ -1,5 +1,4 @@
 import axios from "axios";
-import { axiosInstance } from "../config";
 
 const upload = async (file) => {
   const data = new FormData();
@@ -7,7 +6,7 @@ const upload = async (file) => {
   data.append("upload_preset", "szudurpo");
 
   try {
-    const res = await axiosInstance.post("https://api.cloudinary.com/v1_1/doahplnvf/image/upload", data);
+    const res = await axios.post("https://api.cloudinary.com/v1_1/doahplnvf/image/upload", data);
 
     const { url } = res.data;
     return url;

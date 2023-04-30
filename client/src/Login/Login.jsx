@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { axiosInstance } from "../config";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -18,7 +17,7 @@ function Login() {
      if(validate()){}
      else{
     try {
-      const res = await axiosInstance.post("/auth/login", { username, password },{withCredentials:true});
+      const res = await axios.post("/auth/login", { username, password },{withCredentials:true});
       localStorage.setItem("currentUser", JSON.stringify(res.data));
       navigate("/")
       toast.success("User has been Login Successfully")

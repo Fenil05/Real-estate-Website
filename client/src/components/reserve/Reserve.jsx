@@ -6,7 +6,6 @@ import axios from "axios";
 import useFetch from '../hooks/useFetch';
 import { useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { axiosInstance } from "../../config";
 function Reserve({setOpen}) {
   const [email,setEmail]=useState("");
   const [subject,setSubject]=useState("");
@@ -24,7 +23,7 @@ function Reserve({setOpen}) {
     } = useQuery({
       queryKey: ["user7"],
       queryFn: () =>
-        axiosInstance.get(`/users/single/${userId}`).then((res) => {
+        axios.get(`/users/single/${userId}`).then((res) => {
           return res.data;
         }),
       enabled: !!userId,
@@ -32,7 +31,7 @@ function Reserve({setOpen}) {
 
     const sendMessage=(e)=>{
       e.preventDefault();
-      const url = "https://rentifyab.onrender.com/api/email"
+      const url = "http://localhost:8000/api/email"
       const toemail = dataUser?.email
 
       const data = new FormData();
@@ -41,7 +40,7 @@ function Reserve({setOpen}) {
       data.append("message",message)
       data.append("toemail",toemail)
 
-      axiosInstance.post(url,data).then(response=>{
+      axios.post(url,data).then(response=>{
         alert(response.data.msg);
         window.location.reload(false);
       }).catch((error)=>{

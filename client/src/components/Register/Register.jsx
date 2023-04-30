@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { axiosInstance } from "../../config";
 
 function Register() {
   const [file, setFile] = useState(null);
@@ -37,7 +36,7 @@ function Register() {
     if(validate()){}
     else{
       try {
-        const res = await axiosInstance.post("/auth/validate",user.username,user.email,{withCredentials:true});
+        const res = await axios.post("/auth/validate",user.username,user.email,{withCredentials:true});
       } catch (err) {
         console.log(err.response.data);
         toast.error(err.response.data.message);
@@ -47,7 +46,7 @@ function Register() {
       
     const url = await upload(file);
     try {
-      await axiosInstance.post("/auth/register", {
+      await axios.post("/auth/register", {
         ...user,
         img: url,
       });
