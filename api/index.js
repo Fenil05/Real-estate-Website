@@ -39,7 +39,7 @@ app.use((req,res,next)=>{
 })
 app.use(cors(
     {
-        origin:"https://644eb656d8aaef7ba73d83d7--harmonious-bublanina-7f6a7d.netlify.app/",
+        origin:"https://644eb656d8aaef7ba73d83d7--harmonious-bublanina-7f6a7d.netlify.app",
         credentials:true
     }
 ));
