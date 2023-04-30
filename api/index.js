@@ -38,6 +38,10 @@ app.use((req,res,next)=>{
     next()
 })
 app.use(cors(
+    {
+        origin:"http://localhost:3000",
+        credentials:true
+    }
 ));
 
 app.use(express.json());
@@ -66,7 +70,7 @@ app.use((err,req,res,next) => {
     });
 })
 
-app.listen(process.env.PORT || 8000, () => {
+app.listen(8000, () => {
     connect();
     console.log("Connected to Backend");
 });
